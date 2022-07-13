@@ -8,3 +8,5 @@
 * DFS/BFS 및 인접 행렬, 인접 리스트 등 그래프 관련 이론 학습 완료
 ### 22/7/13
 * DFS/BFS 학습 시작  (5-3 음료수 얼려 먹기까지 완료)
+* 연등으로 추가 학습 시작(DFS/BFS 학습 완료)
+* 다음 계획: https://www.acmicpc.net/problem/tags 에서 greedy, implementation, DFS/BFS 복습하기
