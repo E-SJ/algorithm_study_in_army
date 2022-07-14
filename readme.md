@@ -11,4 +11,5 @@
 * 연등으로 추가 학습 시작(DFS/BFS 학습 완료)
 * 다음 계획: https://www.acmicpc.net/problem/tags 에서 greedy, implementation, DFS/BFS 복습하기
 ### 22/7/14
-* 백준-2839 (greedy) 완료
+* 백준-2839(greedy) 완료
+* [연등] 백준-11399(greedy), 백준-11047(greedy) 완료
