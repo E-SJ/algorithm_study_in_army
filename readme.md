@@ -12,4 +12,7 @@
 * 다음 계획: https://www.acmicpc.net/problem/tags 에서 greedy, implementation, DFS/BFS 복습하기
 ### 22/7/14
 * 백준-2839(greedy) 완료
-* [연등] 백준-11399(greedy), 백준-11047(greedy), 백준-1931(greedy), 백준-1946(greedy) 완료  
+* [연등] 백준-11399(greedy), 백준-11047(greedy), 백준-1931(greedy), 백준-1946(greedy) 완료
+### 22/7/15
+* 백준-11000(greedy) 시도
+* 골드 아니랄까봐 난이도가 갑자기 어려워졌다. 시간 복잡도를 줄이는 노력을 해보자.
