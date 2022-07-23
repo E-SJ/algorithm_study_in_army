@@ -1,5 +1,6 @@
 import sys
 input=sys.stdin.readline
+import time
 n, m = map(int,input().split())
 mapp=[]
 for _ in range(n):
@@ -13,6 +14,9 @@ for i in range(n):
     elif(mapp[i][j]==1):
       houses.append([i,j])
 popularity_chicken=[0 for _ in range(len(chickens))]
+
+
+
 for i in range(len(houses)):
   min_distance=abs(chickens[0][0]-houses[i][0])+abs(chickens[0][1]-houses[i][1])
   nearest_chicken=chickens[0]
@@ -23,18 +27,64 @@ for i in range(len(houses)):
   popularity_chicken[chickens.index(nearest_chicken)]+=1
 
 
+def cal_distances():
+  distances_chickens=[]
+  for i in range(len(houses)):
+    min_distance=abs(chickens[0][0]-houses[i][0])+abs(chickens[0][1]-houses[i][1])
+    nearest_chicken=chickens[0]
+    for j in range(len(chickens)):
+      if (min_distance>abs(chickens[j][0]-houses[i][0])+abs(chickens[j][1]-houses[i][1])):
+        nearest_chicken=chickens[j]
+        min_distance=abs(chickens[j][0]-houses[i][0])+abs(chickens[j][1]-houses[i][1])
+    distances_chickens.append(abs(nearest_chicken[0]-houses[i][0])+abs(nearest_chicken[1]-houses[i][1]))
+    return distances_chickens
+
+
+distances_chickens=[]
+for i in range(len(houses)):
+  min_distance=abs(chickens[0][0]-houses[i][0])+abs(chickens[0][1]-houses[i][1])
+  nearest_chicken=chickens[0]
+  for j in range(len(chickens)):
+    if (min_distance>abs(chickens[j][0]-houses[i][0])+abs(chickens[j][1]-houses[i][1])):
+      nearest_chicken=chickens[j]
+      min_distance=abs(chickens[j][0]-houses[i][0])+abs(chickens[j][1]-houses[i][1])
+  distances_chickens.append(abs(nearest_chicken[0]-houses[i][0])+abs(nearest_chicken[1]-houses[i][1]))
+
+
+
+
 while (len(chickens)>m):
-  min_indexes=[]
-  for item in popularity_chicken
-    if item == min(popularity_chicken):
-      min_indexes.append(item)
-  for index in min_indexes:
+  min_indexes = [i for i, ele in enumerate(popularity_chicken) if ele == min(popularity_chicken)]
+  if (len(min_indexes)==1):
+    mapp[chickens[min_indexes[0]][0]][chickens[min_indexes[0]][1]]=0
+    del chickens[min_index]
+  else:
+    distances=[]
+    for a in range(len(min_indexes)):
+      backup=chickens[a].copy()
+      del chickens[a]
+      
+      distances_chickens=[]
+      for i in range(len(houses)):
+        min_distance=abs(chickens[0][0]-houses[i][0])+abs(chickens[0][1]-houses[i][1])
+        nearest_chicken=chickens[0]
+        for j in range(len(chickens)):
+          if (min_distance>abs(chickens[j][0]-houses[i][0])+abs(chickens[j][1]-houses[i][1])):
+            nearest_chicken=chickens[j]
+            min_distance=abs(chickens[j][0]-houses[i][0])+abs(chickens[j][1]-houses[i][1])
+        distances_chickens.append(abs(nearest_chicken[0]-houses[i][0])+abs(nearest_chicken[1]-houses[i][1]))
+
+      chickens.insert(i,backup)
+      distances.append(sum(distances_chickens))
+    min_index = distances.index(min(distances))
+    del chickens[min_index]
+    #del min_indexes[min_indexes.index(min_index)]
+    mapp[chickens[min_indexes[min_indexes.index(min_index)]][0]][chickens[min_indexes[min_indexes.index(min_index)]][1]]=0
+    print(chickens)
     
-  del chickens[min_index]
+    #print(distances)
+    #print(distances.index(min(distances)))
   
-print(popularity_chicken)
-
-
 
 distances_chickens=[]
 for i in range(len(houses)):
