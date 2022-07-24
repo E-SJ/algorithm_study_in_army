@@ -1,4 +1,4 @@
-from itertools import permutations
+git from itertools import permutations
 n = int(input())
 people = list(map(int,input().split()))
 test=[i for i in range(1,n+1)]
