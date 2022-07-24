@@ -56,3 +56,5 @@
 * 휴가 준비로 인해 바빠서 개인정비 시간동안 풀지 못했다.. 내일은 기다리던 첫 휴가
 * [연등] 백준-2615(implementation) 완료 - 조건이 다양하다보니 사소한 잔실수가 너무 많다. 디버깅 확실히 하자..
 * [연등] 백준-1713(implementation) 완료 - EZ
+* (백준 코테 단골 유형 실버 문제집 : https://www.philgineer.com/2021/11/codingtest-selection.html)
+* [연등] 백준-10997(implementation) 완료 - 규칙만 잘 찾으면 큰 어려움 없이 풀 수 있었다.
