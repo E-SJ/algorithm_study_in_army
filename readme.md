@@ -58,3 +58,5 @@
 * [연등] 백준-1713(implementation) 완료 - EZ
 * (백준 코테 단골 유형 실버 문제집 : https://www.philgineer.com/2021/11/codingtest-selection.html)
 * [연등] 백준-10997(implementation) 완료 - 규칙만 잘 찾으면 큰 어려움 없이 풀 수 있었다.
+### 22/7/25
+* [휴가] 백준-2504(implementation) 시도 - 이산수학 시간에 배웠던 것 같은데 조금 가물가물 한 것 같다. 복습을 해보아야겠다.
