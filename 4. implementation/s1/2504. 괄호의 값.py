@@ -16,27 +16,20 @@ if (small_count!=0) or (big_count!=0):
 
 while True:
   i=0
-  while True:
-    if (i>=len(string)-1):
-      break
+  if (i<len(string)-1):
     if str(string[i])+str(string[i+1])=='()':
       string[i] = 2
       del string[i+1]
-    if (i>=len(string)-1):
-      break
-    if str(string[i])+str(string[i+1])=='[]':
-      string[i] = 3
-      del string[i+1]
+    if (i<len(string)-1):
+      if str(string[i])+str(string[i+1])=='[]':
+        string[i] = 3
+        del string[i+1]
     if (i>=len(string)-1):
       break
     if ((str(type(string[i]))=="<class 'int'>") and (str(type(string[i+1]))=="<class 'int'>")):
       string[i]+=string[i+1]
       del string[i+1]
-    i+=1
-  i=0
-  while True:
-    if (i>=len(string)-2):
-      break
+  if (i<len(string)-2):
     if str(string[i])+str(string[i+2])=='()':
       string[i]=string[i+1]*2
       del string[i+2]
@@ -48,8 +41,7 @@ while True:
       del string[i+2]
       del string[i+1]
     i+=1
-  i=0
-    
+  print(string)
   if (len(string)==1):
     break
 
