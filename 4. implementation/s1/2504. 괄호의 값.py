@@ -1,51 +1,75 @@
+import sys
+input=sys.stdin.readline().strip
 string = list(input())
-small_count=0
-big_count=0
+stack=[]
 for i in range(len(string)):
   if string[i]=='(':
-    small_count+=1
+    stack.append(string[i])
   if string[i]=='[':
-    big_count+=1
+    stack.append(string[i])
   if string[i]==')':
-    small_count-=1
+    if (len(stack)<1 or stack.pop()!='('):
+      print('0')
+      exit()
   if string[i]==']':
-    big_count-=1
-if (small_count!=0) or (big_count!=0):
+    if (len(stack)<1 or stack.pop()!='['):
+      print('0')
+      exit()
+
+if (len(stack))!=0:
   print('0')
   exit()
 
-while True:
-  i=0
-  if (i<len(string)-1):
-    if str(string[i])+str(string[i+1])=='()':
-      string[i] = 2
-      del string[i+1]
-    if (i<len(string)-1):
-      if str(string[i])+str(string[i+1])=='[]':
-        string[i] = 3
-        del string[i+1]
-    if (i>=len(string)-1):
-      break
-    if ((str(type(string[i]))=="<class 'int'>") and (str(type(string[i+1]))=="<class 'int'>")):
-      string[i]+=string[i+1]
-      del string[i+1]
-  if (i<len(string)-2):
-    if str(string[i])+str(string[i+2])=='()':
-      string[i]=string[i+1]*2
-      del string[i+2]
-      del string[i+1]
-    if (i>=len(string)-2):
-      break
-    if str(string[i])+str(string[i+2])=='[]':
-      string[i]=string[i+1]*3
-      del string[i+2]
-      del string[i+1]
-    i+=1
-  print(string)
-  if (len(string)==1):
-    break
 
-print(string[0])
+i=0
+while True:
+  if i == len(string):
+    break
+  if string[i]=='(':
+    stack.append(string[i])
+  elif string[i]=='[':
+    stack.append(string[i])
+  elif string[i]==')':
+    item = stack.pop()
+    if str(type(item))=="<class 'int'>":
+      temp=1
+      while str(type(item))=="<class 'int'>":
+        temp*=item
+        item = stack.pop()
+      if len(stack)>=1 and str(type(stack[-1]))=="<class 'int'>":
+        stack[-1]+=(temp*2)
+      else:
+        stack.append(temp*2)
+    elif len(stack)>=1 and str(type(stack[-1]))=="<class 'int'>":
+      temp=0
+      while len(stack)>=1 and str(type(stack[-1]))=="<class 'int'>":
+        item = stack.pop()
+        temp+=item
+      stack.append(temp+2)
+    else:
+      stack.append(2)
+  elif string[i]==']':
+    item = stack.pop()
+    if str(type(item))=="<class 'int'>":
+      temp=1
+      while str(type(item))=="<class 'int'>":
+        temp*=item
+        item = stack.pop()
+
+      if len(stack)>=1 and str(type(stack[-1]))=="<class 'int'>":
+        stack[-1]+=(temp*3)
+      else:
+        stack.append(temp*3)
+    elif len(stack)>=1 and str(type(stack[-1]))=="<class 'int'>":
+      temp=0
+      while len(stack)>=1 and str(type(stack[-1]))=="<class 'int'>":
+        item = stack.pop()
+        temp+=item
+      stack.append(temp+3)
+    else:
+      stack.append(3)
+  i+=1
+print(stack[0])
 
 
     
