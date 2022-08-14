@@ -1,11 +1,19 @@
-from sys import setrecursionlimit
-setrecursionlimit(10**6)
+import sys
+from collections import deque
+import time
+sys.setrecursionlimit(10**6)
+input=sys.stdin.readline
 r,c = map(int,input().split())
 board=[]
 for _ in range(r):
   board.append(list(map(str,input())))
 dx=[0,1,0,-1]
 dy=[1,0,-1,0]
+for i in range(r):
+  for j in range(c):
+    board[i][j] = ord(board[i][j])-65
+  del board[i][-1]
+
 """
 def bfs():
   Q=deque()
@@ -20,25 +28,28 @@ def bfs():
 """
 
 results=set()
-def dfs(y,x,visited):
-  #print(y,x,count,visited)
-  alphabet=ord(board[y][x])
-  if (visited[alphabet-65]==0):
-    visited[alphabet-65]=1
-  else:
-    return
-  for i in range(4):
-    if (0<=y+dy[i]<r and 0<=x+dx[i]<c):
-      dfs(y+dy[i],x+dx[i],visited[:])
-    else:
-      result=0
-      for item in visited:
-        if (item==1):
-          result+=1
-      results.add(result)
-      #print(result)
+visited=[0 for _ in range(26)]
 
-dfs(0,0,[0 for _ in range(26)])
-print(max(results))
+ans = 0
+def dfs(y,x,count):
+  global ans
+  #temp = time.time()
+  #printvisited()
+  #print(y,x,count,visited)
+  for i in range(4):
+    ny,nx=y+dy[i],x+dx[i]
+    if (0<=ny<r and 0<=nx<c and visited[board[y+dy[i]][x+dx[i]]]==0):
+      alphabet=board[ny][nx]
+      visited[alphabet]=1
+      dfs(ny,nx,count+1)
+      visited[alphabet]=0
+      #print(result)
+      #print(visited)
+  ans=max(count,ans)    
+  #print(f"{time.time()-temp:.23f}")
+
+visited[board[0][0]]=1
+dfs(0,0,1)
+print(ans)
 
   
