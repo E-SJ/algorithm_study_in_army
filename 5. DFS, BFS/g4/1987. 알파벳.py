@@ -56,6 +56,9 @@ dfs(0,0,1)
 print(ans)
 #print(time()-start)
 """
+
+
+""" BFS 방식
 from collections import deque
 r,c = map(int,input().split())
 board=[]
@@ -78,5 +81,38 @@ def bfs(x,y):
           Q.add((nx,ny,z+board[ny][nx]))
         
         
+bfs(0,0)
+print(ans)
+"""
+# deque로도 구현해보자.
+
+from collections import deque
+r,c = map(int,input().split())
+board=[]
+for _ in range(r):
+  board.append(list(map(str,input())))
+
+visited=[['' for _ in range(c)]for _ in range(r)]
+dxy = [(1,0),(-1,0),(0,1),(0,-1)]
+ans=0
+
+def bfs(x,y):
+  global ans
+  Q=deque()
+  visited[y][x]=board[y][x]
+  Q.append((x,y,visited[y][x]))
+  while (Q):
+    ans+=1
+    for _ in range(len(Q)):
+      x,y,z = Q.popleft()
+      visited[y][x]=''
+      for dx,dy in dxy:
+        ny,nx=y+dy,x+dx
+        if (0<=ny<r and 0<=nx<c and visited[ny][nx]!=z+board[y][x]):
+          visited[ny][nx]=z+board[y][x]
+          Q.append((nx,ny,visited[y][x]))
+          
+    print(Q)
+
 bfs(0,0)
 print(ans)
