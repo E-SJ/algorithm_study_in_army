@@ -1,3 +1,4 @@
+""" # DFS 방식
 from sys import setrecursionlimit
 from sys import stdin
 from time import time
@@ -15,8 +16,8 @@ for i in range(r):
     board[i][j] = ord(board[i][j])-65
   del board[i][-1]
 
-"""
-def bfs():
+
+def useless_bfs():
   Q=deque()
   visited=[]
   Q.append((0,0))
@@ -26,7 +27,7 @@ def bfs():
       pos = Q.popleft()
       for i in range(4):
         if (0<=pos[0]+dy[i]<r and 0<=pos[1]+dx[i]<c and not board[pos[0]+dy[i]][pos[1]+dx[i]] in visited)
-"""
+
 
 results=set()
 visited=[0 for _ in range(26)]
@@ -54,3 +55,28 @@ start=time()
 dfs(0,0,1)
 print(ans)
 #print(time()-start)
+"""
+from collections import deque
+r,c = map(int,input().split())
+board=[]
+for _ in range(r):
+  board.append(list(map(str,input())))
+
+dxy = [(1,0),(-1,0),(0,1),(0,-1)]
+ans=0
+def bfs(x,y):
+  global ans
+  Q=set()
+  Q.add((x,y,board[y][x]))
+  while (len(Q)):
+    x,y,z = Q.pop()
+    ans=max(ans,len(z))
+    for dx,dy in dxy:
+      ny,nx=y+dy,x+dx
+      if (0<=ny<r and 0<=nx<c and not board[ny][nx] in z):
+        if not ((nx,ny,z+board[ny][nx]) in Q):
+          Q.add((nx,ny,z+board[ny][nx]))
+        
+        
+bfs(0,0)
+print(ans)
