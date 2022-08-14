@@ -1,14 +1,15 @@
-import sys
-from collections import deque
-import time
-sys.setrecursionlimit(10**6)
-input=sys.stdin.readline
+from sys import setrecursionlimit
+from sys import stdin
+from time import time
+setrecursionlimit(10**4)
+input=stdin.readline
 r,c = map(int,input().split())
 board=[]
 for _ in range(r):
   board.append(list(map(str,input())))
-dx=[0,1,0,-1]
-dy=[1,0,-1,0]
+
+
+dxy=[(1,0),(-1,0),(0,1),(0,-1)]
 for i in range(r):
   for j in range(c):
     board[i][j] = ord(board[i][j])-65
@@ -36,9 +37,9 @@ def dfs(y,x,count):
   #temp = time.time()
   #printvisited()
   #print(y,x,count,visited)
-  for i in range(4):
-    ny,nx=y+dy[i],x+dx[i]
-    if (0<=ny<r and 0<=nx<c and visited[board[y+dy[i]][x+dx[i]]]==0):
+  for dx,dy in dxy:
+    ny,nx=y+dy,x+dx
+    if (0<=ny<r and 0<=nx<c and visited[board[ny][nx]]==0):
       alphabet=board[ny][nx]
       visited[alphabet]=1
       dfs(ny,nx,count+1)
@@ -49,7 +50,7 @@ def dfs(y,x,count):
   #print(f"{time.time()-temp:.23f}")
 
 visited[board[0][0]]=1
+start=time()
 dfs(0,0,1)
 print(ans)
-
-  
+#print(time()-start)
