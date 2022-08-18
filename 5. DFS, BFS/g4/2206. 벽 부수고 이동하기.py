@@ -6,11 +6,14 @@ dyx=[(0,1),(0,-1),(1,0),(-1,0)]
 matrix=[]
 for _ in range(n):
   matrix.append(list(map(int,input().rstrip())))
-visited=[[0 for _ in range(m)] for _ in range(n)]
+visited_1=[[0 for _ in range(m)] for _ in range(n)]
+visited_2=[[0 for _ in range(m)] for _ in range(n)]
 
 def bfs(y,x):
   q=deque()
-  q.append([y,x,False])
+  q.append((y,x,False))
+  visited_1[y][x]=1
+  visited_2[y][x]=1
   count=1
   while q:
     for _ in range(len(q)):
@@ -20,18 +23,18 @@ def bfs(y,x):
         exit()
       for dy,dx in dyx:
         ny,nx=y+dy,x+dx
-        if (0<=ny<n and 0<=nx<m and visited[ny][nx]!=1):
-          if (flag==False and matrix[ny][nx]==1 and visited[ny][nx]!=2):
-            visited[ny][nx]=2
-            q.append([ny,nx,True])
-          elif (flag==False and matrix[ny][nx]==0):
-            visited[ny][nx]=1
-            q.append([ny,nx,False])
-          elif (flag==True and matrix[ny][nx]==0):
-            visited[ny][nx]=1
-            q.append([ny,nx,True])
+        if (0<=ny<n and 0<=nx<m):
+          if (flag==False and matrix[ny][nx]==1 and visited_2[ny][nx]!=1):
+            visited_2[ny][nx]=1
+            q.append((ny,nx,True))
+          elif (flag==False and matrix[ny][nx]==0 and visited_1[ny][nx]!=1):
+            visited_1[ny][nx]=1
+            q.append((ny,nx,False))
+          elif (flag==True and matrix[ny][nx]==0 and visited_2[ny][nx]!=1):
+            visited_2[ny][nx]=1
+            q.append((ny,nx,True))
           
-            
+    #print(q)
     count+=1
 
 bfs(0,0)
