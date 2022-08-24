@@ -1,1 +1,7 @@
 .git/config
+.cache/
+.upm/
+venv/
+.breakpoints
+.replit
+replit.nix
