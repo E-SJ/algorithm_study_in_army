@@ -4,27 +4,35 @@ n = int(input())
 arr=[]
 color_sum=[0 for _ in range(n+1)]
 size_count=[0 for _ in range(2001)]
-color_size_count=[[0 for _ in range(2001)] for _ in range(n+1)]
+color_size_count={}
+#[[0 for _ in range(2001)] for _ in range(n+1)]
 for i in range(n):
   c,s = map(int,input().split())
   arr.append([c,s,i,0])
   color_sum[c]+=s
-  color_size_count[c][s]+=1
+  try:
+    color_size_count[(c,s)]+=1
+  except:
+    color_size_count[(c,s)]=1
+    
   size_count[s]+=1
 sum_color_sum=sum(color_sum)
 arr.sort(key=lambda x:(-x[1],x[0]))
+
 #print(*arr)
 #print(*color_sum)
 
 for i in range(len(arr)):
-  print(size_count[arr[i][1]])
-  print(color_size_count[arr[i][0]][arr[i][1]])
+  #print(size_count[arr[i][1]])
+  #print(color_size_count[arr[i][0]][arr[i][1]])
   # 아랫부분 처리 필요!!
   arr[i][3]+=sum_color_sum
   arr[i][3]-=color_sum[arr[i][0]]
-  arr[i][3]-=arr[i][1]*(size_count[arr[i][1]]-color_size_count[arr[i][0]][arr[i][1]])
+  arr[i][3]-=arr[i][1]*(size_count[arr[i][1]]-color_size_count[(arr[i][0],arr[i][1])])
   sum_color_sum-=arr[i][1]
   color_sum[arr[i][0]]-=arr[i][1]
+  size_count[arr[i][1]]-=1
+  color_size_count[(arr[i][0],arr[i][1])]-=1
   # 윗부분 처리 필요!!
 #print(*arr)
 arr.sort(key=lambda x:x[2])
