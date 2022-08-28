@@ -12,37 +12,26 @@ heap=[]
 i=0
 count=0
 if (pos+p>=l):
-  print(count)
+  print(0)
   exit()
-while True:
-  if (i<n):
-    heapq.heappush(heap,(-oilbanks[i][1],(oilbanks[i][0],oilbanks[i][1])))
-    p-=(oilbanks[i][0]-pos)
-    pos = oilbanks[i][0]
-  elif not heap:
+while pos+p<l:
+  while i<n:
+    if oilbanks[i][0]<=pos+p:
+      heapq.heappush(heap,(-oilbanks[i][1],(oilbanks[i][0],oilbanks[i][1])))
+      i+=1
+    else:
+      break
+  if (not heap):
     print(-1)
     exit()
-  #print(heap,pos,p)
-  if (i+1<n and oilbanks[i+1][0]-pos<=p):
-    i+=1
-    continue
-  elif (heap):
-    #print('debug')
-    oilbank=heapq.heappop(heap)[1]
-    p+=oilbank[1]
-    count+=1
-  else:
-    print(-1)
-    exit()
-  #print(heap,pos,p)
-  if (pos+p>=l):
-    print(count)
-    exit()
-  i+=1
-print(-1)
-  
+  oilbank=heapq.heappop(heap)[1]
+  count+=1
+  p+=oilbank[1]
+  if (pos<oilbank[0]):
+    p-=(oilbank[0]-pos)
+    pos=oilbank[0]
       
-      
+print(count)
       
       
 
