@@ -8,7 +8,7 @@ w = [] # 은닉 층의 각 신경의 각 가중치
 b = [] # 은닉 층의 각 신경의 편향값
 W = [] # 출력 층의 각 가중치
 B = 0  # 출력 층의 편향값
-inputdata=[]
+  
 for i in range(m):
   layerinfo = tuple(map(int,input().split()))
   c.append(layerinfo[0])
@@ -24,18 +24,29 @@ layerinfo = tuple(map(int,input().split()))
 for i in range(m):
   W.append(layerinfo[i])
 B = layerinfo[-1]
-for i in range(q):
-  inputdata.append(tuple(map(int,input().split())))
+
+w_dict = {}
+for neural_num in range(m): # 출력층 계산을 은닉층에 포함 해 추가적인 계산을 생략하기 위한 전처리 과정
+  for index in range(c[neural_num]):
+    try:
+      w_dict[w[neural_num][index]*W[neural_num]]+=1
+    except:
+      w_dict[w[neural_num][index]*W[neural_num]]=1
+    w[neural_num][index]*=W[neural_num]
+  b[neural_num]*=W[neural_num]
+  
+
+  
 
 
 def hidden(layer):
-  output=[]
+  result=0
   for neural_num in range(m):
     temp=b[neural_num]
     for data_num in range(c[neural_num]):
       temp+=(layer[p[neural_num][data_num]-1]*w[neural_num][data_num])
-    output.append(temp)
-  return tuple(output)
+    result+=temp
+  return result
 
 def output(layer):
   temp=B
@@ -43,5 +54,10 @@ def output(layer):
     temp+=(layer[i]*W[i])
   return temp
 
+
 for i in range(q):
-  print(output(hidden(inputdata[i])))
+  inputdata=list(map(int,input().split()))
+  print(w_dict)
+  print(hidden(inputdata)+B)
+
+
