@@ -26,38 +26,32 @@ for i in range(m):
 B = layerinfo[-1]
 
 w_dict = {}
+for i in range(2001):
+  w_dict[i]=0
 for neural_num in range(m): # 출력층 계산을 은닉층에 포함 해 추가적인 계산을 생략하기 위한 전처리 과정
   for index in range(c[neural_num]):
-    try:
-      w_dict[w[neural_num][index]*W[neural_num]]+=1
-    except:
-      w_dict[w[neural_num][index]*W[neural_num]]=1
     w[neural_num][index]*=W[neural_num]
   b[neural_num]*=W[neural_num]
+
+for neural_num in range(m):
+  for i in range(c[neural_num]):
+    w_dict[p[neural_num][i]-1]+=w[neural_num][i]
   
 
-  
 
-
-def hidden(layer):
+def cal(layer):
   result=0
+  for data_num in range(n):
+    result+=layer[data_num]*w_dict[data_num]
   for neural_num in range(m):
-    temp=b[neural_num]
-    for data_num in range(c[neural_num]):
-      temp+=(layer[p[neural_num][data_num]-1]*w[neural_num][data_num])
-    result+=temp
+    result+=b[neural_num]
+    #print(result)
   return result
 
-def output(layer):
-  temp=B
-  for i in range(m):
-    temp+=(layer[i]*W[i])
-  return temp
-
+#print(w_dict)
 
 for i in range(q):
   inputdata=list(map(int,input().split()))
-  print(w_dict)
-  print(hidden(inputdata)+B)
+  print(cal(inputdata)+B)
 
 
