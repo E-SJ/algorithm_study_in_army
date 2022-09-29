@@ -6,11 +6,10 @@ for _ in range(t):
   coins = list(map(int,input().split()))
   m=int(input())
   dp=[0]*(m+1)
-  for i in range(coins[0],m+1):
-    for j in range(len(coins)):
-      if i-coins[j]>=0:
-        dp[i]=max(dp[i],dp[i-coins[j]]+1)
+  dp[0]=1  
+  for i in range(len(coins)):
+    for j in range(1,m+1):
+      if (j-coins[i]>=0):
+        dp[j]+=dp[j-coins[i]]
 
-  print(dp)
-    
-  
+  print(dp[-1])
