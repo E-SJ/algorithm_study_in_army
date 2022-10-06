@@ -1,3 +1,4 @@
+""" # 이분탐색
 import sys
 input=sys.stdin.readline
 r,c = map(int,input().split())
@@ -20,4 +21,31 @@ while left<=right:
   else:
     ans=max(ans,mid)
     left=mid+1
+print(ans)
+"""
+#역순 정렬
+import sys
+input=sys.stdin.readline
+r,c = map(int,input().split())
+strings=["" for _ in range(c)]
+for i in range(r):
+  temp=input()
+  for j in range(c):
+    strings[j]=temp[j]+strings[j]
+#print(strings)
+ans=r-1
+successiveflag=False
+for i in range(0,r-1):
+  temp=set()
+  for j in range(0,c):
+    temp.add(strings[j][i])
+  #print(temp)
+  if (len(temp)!=c):
+    ans-=1
+    if (successiveflag):
+      print(ans)
+      exit()
+  else:
+    successiveflag=True
+
 print(ans)
