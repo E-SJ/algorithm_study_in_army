@@ -16,24 +16,20 @@ for cutnum in cutnums:
   ans=0
   while left<=right:
     mid = (left+right)//2 #자른 빵의 최소 길이
-    cutcount=0
+    cutcount=-1
     temp=0
-    minlength=l
     for i in range(len(cutlength)):
       temp+=cutlength[i]
       if (temp>=mid):
-        minlength=min(temp,minlength)
-        if (i!=len(cutlength)-1):
-          temp=0
-          cutcount+=1
-    minlength=min(temp,minlength)
-    print("trying",cutnum,left,mid,right,cutcount,minlength)
-    if (cutcount>cutnum or minlength<mid):
-      #ans=max(ans,minlength)
+        temp=0
+        cutcount+=1
+    #print("trying",cutnum,left,mid,right,cutcount)
+    if (cutcount>cutnum):
+      ans=max(ans,mid)
       left=mid+1
-    elif (cutcount<cutnum or minlength<mid):
+    elif (cutcount<cutnum):
       right=mid-1
     else:
-      ans=max(ans,minlength)
-      right=mid-1
+      ans=max(ans,mid)
+      left=mid+1
   print(ans)
