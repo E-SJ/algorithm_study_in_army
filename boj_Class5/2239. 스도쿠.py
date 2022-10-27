@@ -62,25 +62,31 @@ for i in range(9):
       empty_loc.append((i,j))
 print(empty_loc)
 
-def recurse(loc,num):
+def recurse(loc):
   if (loc==len(empty_loc)):
     print("END!")
     exit()
   i,j=empty_loc[loc]
-  matrix[i][j]=fixmin(cases[i][j],num)
+  
   for stack in range(len(cases[i][j])):
-    update()
     try:
-      recurse(loc+1,num)
-    except:
-      recurse(loc+1,num+1)
-    else:
-      print(cases[i][j])
+      matrix[i][j]=fixmin(cases[i][j],stack)
+      update()
       print(matrix)
-      break
+    except:
+      #a,b=empty_loc[loc+1]
+      #matrix[a][b]=0
+      continue
+    else:
+      
+      if (recurse(loc+1)==-1):
+        continue
+    
+  else:
+    return -1
 
 
-recurse(0,0)
+recurse(0)
 print(matrix)
 
 #print(matrix)
