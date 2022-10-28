@@ -1,3 +1,4 @@
+INF=10**9
 n = int(input())
 costs=[tuple()]
 for _ in range(n):
@@ -6,46 +7,24 @@ for _ in range(n):
 result=10**9
 
 if (n==2):
-  mincases=[costs[1][1]+costs[2][0],costs[1][1]+costs[2][2],costs[1][2]+costs[2][0],costs[1][2]+costs[2][1]]
-  result=min(result,min(mincases))
-  mincases=[costs[1][0]+costs[2][1],costs[1][0]+costs[2][2],costs[1][2]+costs[2][0],costs[1][2]+costs[2][1]]
-  result=min(result,min(mincases))
-  mincases=[costs[1][0]+costs[2][1],costs[1][0]+costs[2][2],costs[1][1]+costs[2][0],costs[1][1]+costs[2][2]]
-  result=min(result,min(mincases))
-  print(result)
+  mincases=[costs[1][0]+costs[2][1],costs[1][0]+costs[2][2],costs[1][1]+costs[2][0],costs[1][1]+costs[2][2],costs[1][2]+costs[2][0],costs[1][2]+costs[2][1]]
+  print(min(mincases))
   exit()
 else:
   for TEST in range(3):
-    dp=[0]*(n+1)
-    dp_RGB=[-1]*(n+1)
-    dp[1]=costs[1][TEST]
-    dp_RGB[1]=TEST
-    temp = costs[n][TEST]
-    costs[n][TEST]=10**9
-    for i in range(3,n+1):
-      if dp_RGB[i-2]==0:
-        mincases=[costs[i-1][1]+costs[i][0],costs[i-1][1]+costs[i][2],costs[i-1][2]+costs[i][0],costs[i-1][2]+costs[i][1]]
-        cases=[(1,0),(1,2),(2,0),(2,1)]
-        minval=min(mincases)
-        minindex=mincases.index(minval)
-      elif dp_RGB[i-2]==1:
-        mincases=[costs[i-1][0]+costs[i][1],costs[i-1][0]+costs[i][2],costs[i-1][2]+costs[i][0],costs[i-1][2]+costs[i][1]]
-        cases=[(0,1),(0,2),(2,0),(2,1)]
-        minval=min(mincases)
-        minindex=mincases.index(minval)
-      elif dp_RGB[i-2]==2:
-        mincases=[costs[i-1][0]+costs[i][1],costs[i-1][0]+costs[i][2],costs[i-1][1]+costs[i][0],costs[i-1][1]+costs[i][2]]
-        cases=[(0,1),(0,2),(1,0),(1,2)]
-        minval=min(mincases)
-        minindex=mincases.index(minval)
-      dp[i-1]=dp[i-2]+costs[i-1][cases[minindex][0]]
-      dp_RGB[i-1]=cases[minindex][0]
-      dp[i]=dp[i-1]+costs[i][cases[minindex][1]]
-      dp_RGB[i]=cases[minindex][1]
-    
-    
-    #print(dp)
-    costs[n][TEST]=temp
-    result=min(result,dp[-1])
+    dp=[[0,0,0] for _ in range(n+1)]
+    dp[1]=[INF,INF,INF]
+    dp[1][TEST]=costs[1][TEST]
+    for i in range(2,n+1):
+      dp[i][0]=min(dp[i-1][1],dp[i-1][2])+costs[i][0]
+      dp[i][1]=min(dp[i-1][0],dp[i-1][2])+costs[i][1]
+      dp[i][2]=min(dp[i-1][1],dp[i-1][0])+costs[i][2]
+    if (TEST==0):
+      result=min(result,dp[n][1],dp[n][2])
+    elif (TEST==1):
+      result=min(result,dp[n][0],dp[n][2])
+    elif (TEST==2):
+      result=min(result,dp[n][0],dp[n][1])
+     
   
   print(result)
