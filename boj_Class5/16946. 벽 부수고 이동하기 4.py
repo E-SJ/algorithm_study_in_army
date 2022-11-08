@@ -18,14 +18,17 @@ adjnodesnums=copy.deepcopy(dp)
 
 visited=copy.deepcopy(matrix)
 adjnodesnum=0
-for y in range(n):
-  for x in range(m):
-    if (dp[y][x]==0 and visited[y][x]==0):
+#print(*visited,sep='\n')
+for i in range(n):
+  for j in range(m):
+    #print(i,j,dp[i][j],visited[i][j])
+    if (dp[i][j]==0 and visited[i][j]==0):
+      #print("CURRENT",i,j)
       adjnodesnum+=1
-      adjnodes=[(y,x)]
-      visited[y][x]=1
+      adjnodes=[(i,j)]
+      visited[i][j]=1
       q=deque()
-      q.append((y,x))
+      q.append((i,j))
       while q:
         y,x = q.popleft()
         for dy,dx in dydx:
@@ -44,7 +47,7 @@ for y in range(n):
       AddedAdjnodenums=[]
       for dy,dx in dydx:
         ny,nx=y+dy,x+dx
-        if (0<=ny<n and 0<=nx<m and matrix[ny][nx]==0 and not adjnodesnums[ny][nx] in AddedAdjnodenums):
+        if (0<=ny<n and 0<=nx<m and adjnodesnums[ny][nx] not in AddedAdjnodenums and adjnodesnums[ny][nx]!=-1):
           matrix[y][x]+=dp[ny][nx]
           AddedAdjnodenums.append(adjnodesnums[ny][nx])
           
@@ -55,5 +58,4 @@ for y in range(n):
 #print(*dp,sep='\n')
 for line in matrix:
   print(*line,sep='')
-#print(*matrix,sep='\n')
 #print(*adjnodesnums,sep='\n')
