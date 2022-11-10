@@ -1,17 +1,48 @@
 import math
 a,b = map(int,input().split())
 bin_a=list(map(int,bin(a)[2:]))
-bin_b=list(map(int,bin(b)[2:]))
+bin_b=list(map(int,bin(b+1)[2:]))
 pow_2=[2**i for i in range(1000,-1,-1)]
-test=math.log((a+1),2)*(a+1)//2
-print(test)
-print(bin_a)
 a_pow_2=pow_2[-len(bin_a):]
+b_pow_2=pow_2[-len(bin_b):]
 temp=0
-for i,j in zip(bin_a,a_pow_2):
+
+def cal(start,end,bias):
+  temp1=end-start+1
+  temp2 = int(math.log((temp1),2))*(temp1)//2
+  return temp2+temp1*(bias)
+
+
+ans1=0
+iter=0
+for (i,j) in zip(bin_a,a_pow_2):
   if (i*j!=0):
-    print(temp+1,"~",temp+i*j)
+    #print(temp,"~",temp+i*j-1)
+    #print(cal(temp,temp+i*j-1,iter))
+    ans1+=cal(temp,temp+i*j-1,iter)
+    iter+=1
     temp+=i*j
+  else:
+    pass
+    #print("PASS")
+#print("ANS",ans1)
+
+ans2=0
+iter=0
+for (i,j) in zip(bin_b,b_pow_2):
+  if (i*j!=0):
+    #print(temp,"~",temp+i*j-1)
+    #print(cal(temp,temp+i*j-1,iter))
+    ans2+=cal(temp,temp+i*j-1,iter)
+    iter+=1
+    temp+=i*j
+  else:
+    pass
+    #print("PASS")
+#print("ANS",ans2)
+
+print(f"{int(ans2-ans1)}")
+
 
 """ TEST용
 0000	0	0000
